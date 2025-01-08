@@ -1,0 +1,22 @@
+# This is the configuration sample for odoo running inside docker container and postgres database running outside the container
+
+version: '3.8'
+
+services:
+  odoo:
+    image: odoo:latest
+    container_name: odoo
+    depends_on:
+      - postgres
+    ports:
+      - "8069:8069"
+    environment:
+      - HOST=db_host  # Replace 'db_host' with the IP address or hostname of your external PostgreSQL server.
+      - USER=your_db_user
+      - PASSWORD=your_db_password
+      - DBNAME=your_db_name
+    volumes:
+      - odoo-data:/var/lib/odoo
+
+volumes:
+  odoo-data:
